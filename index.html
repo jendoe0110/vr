@@ -13,24 +13,27 @@
       <a-sky color="#87CEEB"></a-sky>
 
       <!-- Sphere -->
-      <a-sphere id="sphere" color="pink" radius="0.5" position="0 1 -5" 
-        animation__click="property: position; to: 0 2 -5; dur: 1000; easing: easeInOutQuad; loop: false"></a-sphere>
+      <a-sphere id="sphere" color="pink" radius="0.5" position="0 1 -5"></a-sphere>
 
       <!-- Cylinder -->
-      <a-cylinder id="cylinder" color="orange" radius="0.25" height="1" position="3 0.5 -5" 
-        animation__click="property: rotation; to: 0 360 0; dur: 2000; easing: linear; loop: true"></a-cylinder>
+      <a-cylinder id="cylinder" color="orange" radius="0.25" height="1" position="3 0.5 -5"></a-cylinder>
       
       <a-entity camera look-controls cursor="rayOrigin: mouse;"></a-entity>
     </a-scene>
 
     <script>
-      AFRAME.registerComponent('clickable', {
-        init: function () {
-          var el = this.el;
-          el.addEventListener('click', function () {
-            el.emit('click');
-          });
-        }
+      // Add event listener for the sphere
+      var sphere = document.getElementById('sphere');
+      sphere.addEventListener('click', function () {
+        var currentPosition = sphere.getAttribute('position');
+        var newYPosition = currentPosition.y + 1; // Increment y position by 1
+        sphere.setAttribute('position', {x: currentPosition.x, y: newYPosition, z: currentPosition.z});
+      });
+
+      // Add event listener for the cylinder
+      var cylinder = document.getElementById('cylinder');
+      cylinder.addEventListener('click', function () {
+        cylinder.setAttribute('animation', 'property: rotation; to: 0 360 0; dur: 2000; easing: linear; loop: true');
       });
     </script>
   </body>
